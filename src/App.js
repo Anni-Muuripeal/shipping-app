@@ -1,25 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from "react";
+import ShipmentTable from "./MainPanel"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [shipments, setShipments] = useState([]);
+
+  useEffect(() => {
+    fetch("https://my.api.mockaroo.com/shipments.json?key=5e0b62d0")
+      .then((response) => response.json())
+      .then((data) => setShipments(data));
+  }, []);
+
+  return <ShipmentTable shipments={shipments} />;
 }
 
 export default App;
